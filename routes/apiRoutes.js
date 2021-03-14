@@ -23,7 +23,9 @@ module.exports = function (app) {
 
 
     app.post("/api/workouts/range", (req, res) => {
-        Workout.create({})
+        const duration = new Workout(req.body)
+        duration.totalDuration();
+        Workout.create(duration)
             .then(dbWorkout => {
                 res.json(dbWorkout)
             })
@@ -33,7 +35,10 @@ module.exports = function (app) {
     })
 
     app.post("/api/workouts", (req, res) => {
-        Workout.create({})
+        const duration = new Workout(req.body)
+        duration.totalDuration();
+
+        Workout.create(duration)
             .then(dbWorkout => {
                 res.json(dbWorkout)
             })
@@ -42,9 +47,9 @@ module.exports = function (app) {
             })
     })
 
-    app.put("/api/workouts/:id", (req, res) => {
-        Workout.findByIdAndUpdate(req.params.id, 
-        {$push: {exercises: req.body}},
+    app.put("/api/workouts/:id", ({body, params}, res) => {
+        Workout.findByIdAndUpdate(params.id, 
+        {$push: {exercises: body}},
         {new: true })
             .then(dbWorkout => {
                 res.json(dbWorkout)
