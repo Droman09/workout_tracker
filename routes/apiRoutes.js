@@ -23,9 +23,7 @@ module.exports = function (app) {
 
 
     app.post("/api/workouts/range", (req, res) => {
-        const duration = new Workout(req.body)
-        duration.totalDuration();
-        Workout.create(duration)
+        Workout.create({})
             .then(dbWorkout => {
                 res.json(dbWorkout)
             })
@@ -35,10 +33,7 @@ module.exports = function (app) {
     })
 
     app.post("/api/workouts", (req, res) => {
-        const duration = new Workout(req.body)
-        duration.totalDuration();
-
-        Workout.create(duration)
+        Workout.create({})
             .then(dbWorkout => {
                 res.json(dbWorkout)
             })
